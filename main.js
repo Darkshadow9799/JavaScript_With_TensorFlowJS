@@ -171,6 +171,7 @@ async function predict() {
     let tensorImg = tf.browser.fromPixels(image).resizeNearestNeighbor([224,224]).toFloat().expandDims();
     let prediction = await model.predict(tensorImg).data();
     console.log(prediction);   
+    document.getElementById('result').innerHTML='Results: ['+prediction+']';
 }
 
 
