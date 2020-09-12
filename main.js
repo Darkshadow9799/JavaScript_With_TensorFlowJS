@@ -166,8 +166,13 @@ switch(day){
 */
 async function predict() {
     const model = await tf.loadLayersModel('tfjs_models/model.json');
-    model.summary();
+    //model.summary();
+    let image = document.getElementById("pred_img")  
+    let tensorImg = tf.browser.fromPixels(image).resizeNearestNeighbor([224,224]).toFloat().expandDims();
+    let prediction = await model.predict(tensorImg).data();
+    console.log(prediction);   
 }
+
 
 predict();
 
