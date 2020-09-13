@@ -1,19 +1,22 @@
 async function predict() {
     const model = await tf.loadLayersModel('tfjs_models/model.json');
     //model.summary();
-    let image = document.getElementById("pred_img")  
-    let tensorImg = tf.browser.fromPixels(image).resizeNearestNeighbor([224,224]).toFloat().expandDims();
-    let prediction = await model.predict(tensorImg).data();
-    console.log(prediction);   
+    let image = $("#pred_img").get(0);
+    let tensorImg = tf.browser.fromPixels(image,3)
+                    .resizeNearestNeighbor([224,224])
+                    .toFloat()
+                    .expandDims()
+                    .reverse(-1);
+
+    let normalizationOffset = tf.scalar(127.5);
+    var normalized = tensorImg.toFloat().sub(normalizationOffset).div(normalizationOffset);
+    let prediction = await model.predict(normalized).data();
+    console.log(Math.max(...prediction));   
     document.getElementById('result').innerHTML='Results: ['+prediction+']';
 }
 
 
 predict();
-
-let a=nj.array([2,3,4]);
-console.log(a.selection.data);
-
 
 
 // Variables:
