@@ -17,7 +17,16 @@ async function predict() {
 
 
 predict();
-
+/* 
+if preds==0:
+    preds="The leaf is diseased cotton leaf"
+elif preds==1:
+    preds="The leaf is diseased cotton plant"
+elif preds==2:
+    preds="The leaf is fresh cotton leaf"
+else:
+    preds="The leaf is fresh cotton plant"
+*/
 
 // Variables:
 // var, let and const
