@@ -31,6 +31,8 @@ async function predict() {
 
 
 function changeImage(){
+    document.getElementById('upload_image').style.visibility="hidden";
+    document.getElementById('pred_img').style.visibility="visible";
     var imageDisplay=document.getElementById('pred_img');
     var selectImage=document.getElementById('select-img').files[0];
     imageDisplay.src=URL.createObjectURL(selectImage);
