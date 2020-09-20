@@ -11,8 +11,22 @@ async function predict() {
     let normalizationOffset = tf.scalar(127.5);
     var normalized = tensorImg.toFloat().sub(normalizationOffset).div(normalizationOffset);
     let prediction = await model.predict(normalized).data();
-    console.log(Math.max(...prediction));   
-    document.getElementById('result').innerHTML='Results: ['+prediction+']';
+    for(let i=0;i<prediction.length;i++){
+        prediction[i]=prediction[i].toFixed(2);
+    }
+    console.log(prediction.indexOf(Math.max(...prediction)));
+    let preds=prediction.indexOf(Math.max(...prediction));   
+    if(preds==0)
+        preds="The leaf is diseased cotton leaf";
+    else if(preds==1)
+        preds="The leaf is diseased cotton plant";
+    else if(preds==2)
+        preds="The leaf is fresh cotton leaf"
+    else
+        preds="The leaf is fresh cotton plant"
+
+    document.getElementById('result').innerHTML='Results: '+preds;
+    console.log(prediction);
 }
 
 
@@ -26,9 +40,9 @@ function changeImage(){
 /* 
 if preds==0:
     preds="The leaf is diseased cotton leaf"
-elif preds==1:
+else if preds==1:
     preds="The leaf is diseased cotton plant"
-elif preds==2:
+else if preds==2:
     preds="The leaf is fresh cotton leaf"
 else:
     preds="The leaf is fresh cotton plant"
